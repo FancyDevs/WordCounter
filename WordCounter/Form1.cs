@@ -67,7 +67,9 @@ namespace WordCounter
 
             tempResult = "WORD".PadRight(20, ' ') + "| COUNT";
 
-            foreach (WordsClass item in listOfWordsInput)
+            //listOfWordsInput = listOfWordsInput.OrderBy(x => x.totalCount);
+
+            foreach (WordsClass item in listOfWordsInput.OrderByDescending(x => x.totalCount))
             {
                 tempResult += "\r\n";
                 tempResult += item.nameOfWord.PadRight(20, ' ') + "| " + item.totalCount.ToString();
@@ -107,7 +109,7 @@ namespace WordCounter
                     }
                     else
                     {
-                        listOfWords.Add(new WordsClass { nameOfWord = text, totalCount = 1 });
+                        listOfWords.Add(new WordsClass { nameOfWord = text.ToLower(), totalCount = 1 });
                     }
                 }
             }
@@ -137,7 +139,7 @@ namespace WordCounter
 
             for (int i = 0; i < listToCheck.Count; i++)
             {
-                if (string.Equals(listToCheck[i].nameOfWord, nameToCheck))
+                if (string.Equals(listToCheck[i].nameOfWord.ToLower(), nameToCheck.ToLower()))
                 {
                     foundValue = i;
                     break;
