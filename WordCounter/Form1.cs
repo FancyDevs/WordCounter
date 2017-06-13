@@ -16,13 +16,12 @@ namespace WordCounter
         string sFileName = "";
         public static List<WordsClass> listOfWords = new List<WordsClass>();
 
-
-
         public Form1()
         {
             InitializeComponent();
         }
 
+        //TODO do you need this guy????
         private void Form1_Load(object sender, EventArgs e)
         {
 
@@ -36,6 +35,8 @@ namespace WordCounter
             dialogBox.FilterIndex = 1;
             dialogBox.Multiselect = false;
 
+            //TODO before using try/catch try and check if userPath.Text is blank or null
+            //also try to only use try/catch for a specific exception other whys you might not see any other bugs that pop up
             try
             {
                 dialogBox.InitialDirectory = System.IO.Path.GetDirectoryName(userPath.Text);
@@ -44,8 +45,6 @@ namespace WordCounter
             {
                 dialogBox.InitialDirectory = @"C:\Users\alanw\Documents";
             }
-
-            
 
             if (dialogBox.ShowDialog() == DialogResult.OK)
             {
@@ -83,10 +82,14 @@ namespace WordCounter
         {
             listOfWords.Clear();
 
+            //TODO can you change this to a using instead of naming it all out here
+            //TODO also you can replace the left side with var word to simplify it
             Microsoft.Office.Interop.Word.Application word = new Microsoft.Office.Interop.Word.Application();
             object miss = System.Reflection.Missing.Value;
             object readOnly = true;
             object pathForWord = pathIn;
+            
+            //TODO same down here replace with var doc
             Microsoft.Office.Interop.Word.Document doc = word.Documents.Open(ref pathForWord, ref miss, ref readOnly, ref miss, ref miss, ref miss, ref miss,
                 ref miss, ref miss, ref miss, ref miss, ref miss, ref miss, ref miss, ref miss, ref miss);
 
@@ -151,6 +154,7 @@ namespace WordCounter
 
         private void userPath_TextChanged(object sender, EventArgs e)
         {
+            //TODO Can simplify this to goButton.Enabled = !string.IsNullOrEmpty(userPath.Text)
             if (string.IsNullOrEmpty(userPath.Text))
             {
                 goButton.Enabled = false;
